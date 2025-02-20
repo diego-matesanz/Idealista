@@ -1,4 +1,4 @@
-package com.diego.matesanz.idealista.ui.screens.list
+package com.diego.matesanz.idealista.ui.screens.productList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.diego.matesanz.idealista.databinding.ItemListBinding
 import com.diego.matesanz.idealista.domain.models.ProductItem
 
-class ListAdapter(
-    private val items: List<ProductItem>,
-) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ProductListAdapter(
+    private val products: List<ProductItem>,
+) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,10 +24,10 @@ class ListAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-        holder.bind(items[position])
+        holder.bind(products[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = products.size
 
     class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductItem) {
