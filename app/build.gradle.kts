@@ -41,10 +41,16 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
 dependencies {
+
+    // Modules
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":framework"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
