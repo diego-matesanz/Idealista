@@ -4,11 +4,11 @@ data class ProductItem(
     val propertyCode: String,
     val thumbnail: String,
     val floor: String,
-    val price: Int,
+    val price: Double,
     val priceInfo: PriceInfo,
     val propertyType: String,
     val operation: String,
-    val size: Int,
+    val size: Double,
     val exterior: Boolean,
     val rooms: Int,
     val bathrooms: Int,
@@ -23,23 +23,23 @@ data class ProductItem(
     val description: String,
     val multimedia: Multimedia,
     val features: Features,
-    val parkingSpace: ParkingSpace
+    val parkingSpace: ParkingSpace,
 ) {
     data class PriceInfo(
-        val price: Price
+        val price: Price,
     ) {
         data class Price(
-            val amount: Int,
-            val currencySuffix: String
+            val amount: Double,
+            val currencySuffix: String,
         )
     }
 
     data class Multimedia(
-        val images: List<Image>
+        val images: List<Image>,
     ) {
         data class Image(
             val url: String,
-            val tag: String
+            val tag: String,
         )
     }
 
@@ -48,11 +48,11 @@ data class ProductItem(
         val hasBoxRoom: Boolean,
         val hasSwimmingPool: Boolean,
         val hasTerrace: Boolean,
-        val hasGarden: Boolean
+        val hasGarden: Boolean,
     )
 
     data class ParkingSpace(
         val hasParkingSpace: Boolean,
-        val isParkingSpaceIncludedInPrice: Boolean
+        val isParkingSpaceIncludedInPrice: Boolean,
     )
 }

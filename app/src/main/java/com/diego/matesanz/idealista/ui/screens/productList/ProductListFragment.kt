@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.databinding.FragmentProductListBinding
-import com.diego.matesanz.idealista.domain.usecases.GetProductsUseCase
+import com.diego.matesanz.idealista.usecases.GetProductsUseCase
 import com.diego.matesanz.idealista.framework.remote.ProductsClient
 import com.diego.matesanz.idealista.framework.remote.datasource.ProductsServerDataSource
 import kotlinx.coroutines.launch

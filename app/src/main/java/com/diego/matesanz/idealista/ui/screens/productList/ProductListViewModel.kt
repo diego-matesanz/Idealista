@@ -3,14 +3,13 @@ package com.diego.matesanz.idealista.ui.screens.productList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diego.matesanz.idealista.domain.models.ProductItem
-import com.diego.matesanz.idealista.domain.usecases.GetProductsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ProductListViewModel(
-    private val getProductsUseCase: GetProductsUseCase,
+    private val getProductsUseCase: com.diego.matesanz.idealista.usecases.GetProductsUseCase,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState())

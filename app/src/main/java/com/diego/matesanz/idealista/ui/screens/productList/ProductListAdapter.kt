@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.recyclerview.widget.RecyclerView
-import com.diego.matesanz.idealista.databinding.ItemListBinding
+import com.diego.matesanz.idealista.databinding.ProductItemBinding
 import com.diego.matesanz.idealista.domain.models.ProductItem
 
 class ProductListAdapter(
@@ -15,7 +15,7 @@ class ProductListAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ItemListBinding
+        val binding = ProductItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
@@ -29,7 +29,7 @@ class ProductListAdapter(
 
     override fun getItemCount(): Int = products.size
 
-    class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductItem) {
             binding.composeView.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)

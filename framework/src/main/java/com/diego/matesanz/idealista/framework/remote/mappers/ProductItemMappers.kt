@@ -56,13 +56,13 @@ private fun ProductItemResponse.Features.toDomainModel(): ProductItem.Features =
     ProductItem.Features(
         hasAirConditioning = hasAirConditioning,
         hasBoxRoom = hasBoxRoom,
-        hasSwimmingPool = hasSwimmingPool,
-        hasTerrace = hasTerrace,
-        hasGarden = hasGarden,
+        hasSwimmingPool = hasSwimmingPool == true,
+        hasTerrace = hasTerrace == true,
+        hasGarden = hasGarden == true,
     )
 
-private fun ProductItemResponse.ParkingSpace.toDomainModel(): ProductItem.ParkingSpace =
+private fun ProductItemResponse.ParkingSpace?.toDomainModel(): ProductItem.ParkingSpace =
     ProductItem.ParkingSpace(
-        hasParkingSpace = hasParkingSpace,
-        isParkingSpaceIncludedInPrice = isParkingSpaceIncludedInPrice,
+        hasParkingSpace = this?.hasParkingSpace == true,
+        isParkingSpaceIncludedInPrice = this?.isParkingSpaceIncludedInPrice == true,
     )

@@ -13,8 +13,3 @@ kotlin {
         jvmTarget = JvmTarget.JVM_17
     }
 }
-dependencies {
-
-    // Modules
-    implementation(project(":data"))
-}
