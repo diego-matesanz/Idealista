@@ -55,7 +55,12 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+
+    // Material
     implementation(libs.material)
+    implementation(libs.androidx.material3)
+
+    // Activity
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
