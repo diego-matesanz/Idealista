@@ -1,7 +1,8 @@
-package com.diego.matesanz.idealista.ui.screens.productList
+package com.diego.matesanz.idealista.ui.screens.productList.adapter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,16 +53,19 @@ import com.diego.matesanz.idealista.ui.theme.White
 @Composable
 fun ProductItem(
     product: ProductItem,
+    onClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(color = White, shape = RoundedCornerShape(4.dp))
             .border(
                 width = 1.dp,
                 color = Black.copy(alpha = 0.1f),
                 shape = RoundedCornerShape(4.dp)
-            ),
+            )
+            .clickable { onClick(product.propertyCode) },
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         MultimediaPager(multimedia = product.multimedia)
@@ -153,7 +157,7 @@ private fun MultimediaIconsRow(multimedia: ProductItem.Multimedia) {
 private fun MultimediaItemIcon(
     imageVector: ImageVector,
     contentDescription: String,
-){
+) {
     IconButton(
         onClick = {},
         modifier = Modifier
@@ -313,6 +317,9 @@ private fun ActionButtons() {
 @Preview
 fun ProductItemPreview() {
     IdealistaTheme {
-        ProductItem(product = productMock)
+        ProductItem(
+            product = productMock,
+            onClick = {},
+        )
     }
 }

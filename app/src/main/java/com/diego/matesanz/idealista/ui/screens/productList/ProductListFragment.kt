@@ -6,16 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.databinding.FragmentProductListBinding
 import com.diego.matesanz.idealista.domain.models.ProductItem
-import com.diego.matesanz.idealista.usecases.GetProductsUseCase
 import com.diego.matesanz.idealista.framework.remote.ProductsClient
 import com.diego.matesanz.idealista.framework.remote.datasource.ProductsServerDataSource
+import com.diego.matesanz.idealista.ui.screens.productList.adapter.ProductItemListener
+import com.diego.matesanz.idealista.ui.screens.productList.adapter.ProductListAdapter
+import com.diego.matesanz.idealista.usecases.GetProductsUseCase
 import kotlinx.coroutines.launch
 
-class ProductListFragment : Fragment() {
+class ProductListFragment : Fragment(), ProductItemListener {
 
     private lateinit var binding: FragmentProductListBinding
     private lateinit var viewModel: ProductListViewModel
@@ -56,7 +59,17 @@ class ProductListFragment : Fragment() {
     }
 
     private fun initRecyclerView(products: List<ProductItem>) {
-        binding.recyclerView.adapter = ProductListAdapter(products)
+        binding.recyclerView.adapter = ProductListAdapter(
+            products = products,
+            listener = this,
+        )
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onProductClick(propertyCode: String) {
+        val action =
+            ProductListFragmentDirections.actionProductListFragmentToProductDetailFragment()
+                .setPropertyCode(propertyCode)
+        findNavController().navigate(action)
     }
 }

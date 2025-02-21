@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ProductDetailResponse(
     @SerialName("adid") val adid: Int,
-    @SerialName("price") val price: Int,
+    @SerialName("price") val price: Double,
     @SerialName("priceInfo") val priceInfo: PriceInfo,
     @SerialName("operation") val operation: String,
     @SerialName("propertyType") val propertyType: String,
@@ -23,7 +23,7 @@ data class ProductDetailResponse(
 ) {
     @Serializable
     data class PriceInfo(
-        @SerialName("amount") val amount: Int,
+        @SerialName("amount") val amount: Double,
         @SerialName("currencySuffix") val currencySuffix: String
     )
 
@@ -48,7 +48,7 @@ data class ProductDetailResponse(
 
     @Serializable
     data class MoreCharacteristics(
-        @SerialName("communityCosts") val communityCosts: Int,
+        @SerialName("communityCosts") val communityCosts: Double,
         @SerialName("roomNumber") val roomNumber: Int,
         @SerialName("bathNumber") val bathNumber: Int,
         @SerialName("exterior") val exterior: Boolean,

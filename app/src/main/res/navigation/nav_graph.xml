@@ -9,5 +9,18 @@
         android:id="@+id/productListFragment"
         android:name="com.diego.matesanz.idealista.ui.screens.productList.ProductListFragment"
         android:label="ProductListFragment"
-        tools:layout="@layout/fragment_product_list" />
+        tools:layout="@layout/fragment_product_list" >
+        <action
+            android:id="@+id/action_productListFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.diego.matesanz.idealista.ui.screens.productDetail.ProductDetailFragment"
+        android:label="ProductDetailFragment">
+        <argument
+            android:name="propertyCode"
+            app:argType="string"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

@@ -2,7 +2,7 @@ package com.diego.matesanz.idealista.domain.models
 
 data class ProductDetail(
     val adid: Int,
-    val price: Int,
+    val price: Double,
     val priceInfo: PriceInfo,
     val operation: String,
     val propertyType: String,
@@ -17,7 +17,7 @@ data class ProductDetail(
     val energyCertification: EnergyCertification
 ) {
     data class PriceInfo(
-        val amount: Int,
+        val amount: Double,
         val currencySuffix: String
     )
 
@@ -38,7 +38,7 @@ data class ProductDetail(
     )
 
     data class MoreCharacteristics(
-        val communityCosts: Int,
+        val communityCosts: Double,
         val roomNumber: Int,
         val bathNumber: Int,
         val exterior: Boolean,
