@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.recyclerview.widget.RecyclerView
 import com.diego.matesanz.idealista.databinding.ProductItemBinding
 import com.diego.matesanz.idealista.domain.models.ProductItem
+import com.diego.matesanz.idealista.ui.theme.IdealistaTheme
 
 class ProductListAdapter(
     private val products: List<ProductItem>,
@@ -34,7 +35,9 @@ class ProductListAdapter(
             binding.composeView.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 setContent {
-
+                    IdealistaTheme {
+                        ProductItem(product = product)
+                    }
                 }
             }
         }

@@ -58,7 +58,9 @@ dependencies {
 
     // Material
     implementation(libs.material)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
 
     // Activity
     implementation(libs.androidx.activity)

@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.databinding.FragmentProductListBinding
+import com.diego.matesanz.idealista.domain.models.ProductItem
 import com.diego.matesanz.idealista.usecases.GetProductsUseCase
 import com.diego.matesanz.idealista.framework.remote.ProductsClient
 import com.diego.matesanz.idealista.framework.remote.datasource.ProductsServerDataSource
@@ -48,14 +49,14 @@ class ProductListFragment : Fragment() {
                     //binding.progressBar.visibility = View.VISIBLE
                 } else if (state.products.isNotEmpty()) {
                     //binding.progressBar.visibility = View.GONE
-                    initRecyclerView()
+                    initRecyclerView(state.products)
                 }
             }
         }
     }
 
-    private fun initRecyclerView() {
-        binding.recyclerView.adapter = ProductListAdapter(listOf())
+    private fun initRecyclerView(products: List<ProductItem>) {
+        binding.recyclerView.adapter = ProductListAdapter(products)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 }

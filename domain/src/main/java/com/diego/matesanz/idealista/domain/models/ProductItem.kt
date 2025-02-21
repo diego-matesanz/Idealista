@@ -41,6 +41,18 @@ data class ProductItem(
             val url: String,
             val tag: String,
         )
+
+        fun hasImages(): Boolean {
+            return images.isNotEmpty()
+        }
+
+        fun hasVideo(): Boolean {
+            return false
+        }
+
+        fun hasMap(): Boolean {
+            return true
+        }
     }
 
     data class Features(
