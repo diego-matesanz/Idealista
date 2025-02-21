@@ -41,14 +41,28 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
 dependencies {
 
+    // Modules
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":usecases"))
+    implementation(project(":framework"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+
+    // Material
     implementation(libs.material)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
+
+    // Activity
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
@@ -78,6 +92,11 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.kotlinx.serialization)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
 
     testImplementation(libs.junit)
 

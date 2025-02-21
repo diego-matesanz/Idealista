@@ -1,3 +1,14 @@
 <resources>
+
     <string name="app_name">Idealista</string>
+
+    <!-- Product List Screen -->
+    <string name="product_list_screen_title">Product List</string>
+    <string name="property_type_and_address">%1$s en %2$s</string>
+    <string name="municipality_and_province">%1$s, %2$s</string>
+    <string name="number_of_rooms">%1$d hab.</string>
+    <string name="size">%1$s m²</string>
+    <string name="contact_button">Contactar</string>
+    <string name="call_button">Llamar</string>
+    <string name="property_type_flat">Piso</string>
 </resources>
