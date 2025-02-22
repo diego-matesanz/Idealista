@@ -1,4 +1,4 @@
-package com.diego.matesanz.idealista.usecases
+package com.diego.matesanz.idealista.usecases.productDetail
 
 import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.domain.models.ProductDetail

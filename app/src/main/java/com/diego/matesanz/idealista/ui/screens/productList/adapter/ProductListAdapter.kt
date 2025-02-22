@@ -22,6 +22,7 @@ class ProductListAdapter(
         return ViewHolder(
             binding = binding,
             onClick = listener::onProductClick,
+            onFavoriteClick = listener::onFavoriteClick,
         )
     }
 
@@ -37,6 +38,7 @@ class ProductListAdapter(
     class ViewHolder(
         val binding: ProductItemBinding,
         private val onClick: (String) -> Unit,
+        private val onFavoriteClick: (ProductItem) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductItem) {
             binding.composeView.apply {
@@ -46,6 +48,7 @@ class ProductListAdapter(
                         ProductItem(
                             product = product,
                             onClick = onClick,
+                            onFavoriteClick = onFavoriteClick,
                         )
                     }
                 }

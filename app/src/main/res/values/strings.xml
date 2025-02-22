@@ -10,8 +10,10 @@
     <string name="contact_button">Contactar</string>
     <string name="call_button">Llamar</string>
     <string name="property_type_flat">Piso</string>
+    <string name="property_saved_message">Propiedad guardada en favoritos el %1$s</string>
+    <string name="property_removed_message">Propiedad eliminada de favoritos el %1$s</string>
 
-    <!-- Product List Screen -->
+    <!-- Product Detail Screen -->
     <string name="number_of_images">%1$d fotos</string>
     <string name="number_of_videos">%1$d videos</string>
     <string name="map">Mapa</string>

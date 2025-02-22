@@ -3,7 +3,7 @@ package com.diego.matesanz.idealista.ui.screens.productDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diego.matesanz.idealista.domain.models.ProductDetail
-import com.diego.matesanz.idealista.usecases.GetProductDetailUseCase
+import com.diego.matesanz.idealista.usecases.productDetail.GetProductDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
