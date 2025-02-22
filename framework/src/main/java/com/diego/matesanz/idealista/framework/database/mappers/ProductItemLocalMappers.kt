@@ -28,6 +28,7 @@ internal fun ProductItemEntity.toDomainModel(): ProductItem =
         multimedia = multimedia.toDomainModel(),
         features = features.toDomainModel(),
         parkingSpace = parkingSpace.toDomainModel(),
+        isSaved = isSaved,
     )
 
 private fun ProductItemEntity.PriceInfo.toDomainModel(): ProductItem.PriceInfo =
@@ -92,6 +93,7 @@ internal fun ProductItem.toEntity(): ProductItemEntity =
         multimedia = multimedia.toEntity(),
         features = features.toEntity(),
         parkingSpace = parkingSpace.toEntity(),
+        isSaved = isSaved,
     )
 
 private fun ProductItem.PriceInfo.toEntity(): ProductItemEntity.PriceInfo =

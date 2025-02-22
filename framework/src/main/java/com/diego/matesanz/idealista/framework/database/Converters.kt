@@ -35,7 +35,7 @@ class Converters {
         return try {
             Gson().fromJson<ProductItemEntity.Multimedia>(value)
         } catch (e: JsonSyntaxException) {
-            Log.e("Converters", "Error converting string to ProductItemEntity.PriceInfo", e)
+            Log.e("Converters", "Error converting string to ProductItemEntity.Multimedia", e)
             ProductItemEntity.Multimedia(
                 images = emptyList()
             )
@@ -50,7 +50,7 @@ class Converters {
         return try {
             Gson().fromJson<ProductItemEntity.Features>(value)
         } catch (e: JsonSyntaxException) {
-            Log.e("Converters", "Error converting string to ProductItemEntity.PriceInfo", e)
+            Log.e("Converters", "Error converting string to ProductItemEntity.Features", e)
             ProductItemEntity.Features(
                 hasAirConditioning = false,
                 hasBoxRoom = false,
@@ -69,7 +69,7 @@ class Converters {
         return try {
             Gson().fromJson<ProductItemEntity.ParkingSpace>(value)
         } catch (e: JsonSyntaxException) {
-            Log.e("Converters", "Error converting string to ProductItemEntity.PriceInfo", e)
+            Log.e("Converters", "Error converting string to ProductItemEntity.ParkingSpace", e)
             ProductItemEntity.ParkingSpace(
                 hasParkingSpace = false,
                 isParkingSpaceIncludedInPrice = false

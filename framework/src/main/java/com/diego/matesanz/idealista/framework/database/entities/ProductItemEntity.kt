@@ -29,6 +29,7 @@ data class ProductItemEntity(
     val multimedia: Multimedia,
     val features: Features,
     val parkingSpace: ParkingSpace,
+    val isSaved: Boolean,
 ) {
     data class PriceInfo(
         val price: Price,
