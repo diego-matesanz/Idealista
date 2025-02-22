@@ -60,7 +60,7 @@ import com.diego.matesanz.idealista.ui.common.components.multimediaPager.Multime
 import com.diego.matesanz.idealista.ui.common.components.propertyType.mapPropertyType
 import com.diego.matesanz.idealista.ui.common.utils.formatIntegerWithDots
 import com.diego.matesanz.idealista.ui.screens.Screen
-import com.diego.matesanz.idealista.usecases.GetProductDetailUseCase
+import com.diego.matesanz.idealista.usecases.productDetail.GetProductDetailUseCase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -461,16 +461,4 @@ private fun ContactButtons(
             )
         }
     }
-}
-
-@Composable
-@Preview
-private fun ProductDetailScreenPreview() {
-    val viewModel = ProductDetailViewModel(
-        propertyCode = "1",
-        getProductDetailUseCase = GetProductDetailUseCase(
-            ProductRepository(ProductsServerDataSource(ProductsClient.instance))
-        ),
-    )
-    ProductDetailScreen(viewModel)
 }

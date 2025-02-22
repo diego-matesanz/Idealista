@@ -28,6 +28,7 @@ internal fun ProductItemResponse.toDomainModel(): ProductItem =
         multimedia = multimedia.toDomainModel(),
         features = features.toDomainModel(),
         parkingSpace = parkingSpace.toDomainModel(),
+        isSaved = false,
     )
 
 private fun ProductItemResponse.PriceInfo.toDomainModel(): ProductItem.PriceInfo =

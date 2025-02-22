@@ -17,4 +17,7 @@ dependencies {
 
     // Modules
     implementation(project(":domain"))
+
+    // Kotlin coroutines
+    implementation(libs.kotlinx.coroutines.android)
 }

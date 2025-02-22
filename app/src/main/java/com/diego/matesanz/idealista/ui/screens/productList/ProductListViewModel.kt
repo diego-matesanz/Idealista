@@ -3,32 +3,49 @@ package com.diego.matesanz.idealista.ui.screens.productList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diego.matesanz.idealista.domain.models.ProductItem
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.diego.matesanz.idealista.usecases.productList.GetProductsUseCase
+import com.diego.matesanz.idealista.usecases.productList.ToggleProductFavoriteUseCase
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+sealed interface ProductListAction {
+    data class ToggleFavorite(val product: ProductItem) : ProductListAction
+}
+
 class ProductListViewModel(
-    private val getProductsUseCase: com.diego.matesanz.idealista.usecases.GetProductsUseCase,
+    getProductsUseCase: GetProductsUseCase,
+    private val toggleProductFavoriteUseCase: ToggleProductFavoriteUseCase
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<UiState> = MutableStateFlow(UiState())
-    val state: StateFlow<UiState> = _state
+    val state: StateFlow<UiState> =
+        getProductsUseCase()
+            .map { products -> UiState(products = products, isLoading = false) }
+            .catch { UiState(errorMessage = it.message) }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                UiState(isLoading = true)
+            )
 
-    init {
-        getProducts()
+    fun onAction(action: ProductListAction) {
+        when (action) {
+            is ProductListAction.ToggleFavorite -> toggleFavorite(action.product)
+        }
     }
 
-    private fun getProducts() {
+    private fun toggleFavorite(product: ProductItem) {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-            _state.update { it.copy(products = getProductsUseCase(), isLoading = false) }
+            toggleProductFavoriteUseCase(product)
         }
     }
 
     data class UiState(
         val isLoading: Boolean = false,
         val products: List<ProductItem> = emptyList(),
-        val errorMessage: String? = null
+        val errorMessage: String? = null,
     )
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
@@ -21,26 +22,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.diego.matesanz.idealista.R
 import com.diego.matesanz.idealista.domain.models.ProductItem
 import com.diego.matesanz.idealista.ui.common.components.multimediaPager.MultimediaPager
 import com.diego.matesanz.idealista.ui.common.components.propertyType.mapPropertyType
 import com.diego.matesanz.idealista.ui.common.utils.formatIntegerWithDots
-import com.diego.matesanz.idealista.ui.screens.productList.mocks.productMock
 import com.diego.matesanz.idealista.ui.theme.Black
-import com.diego.matesanz.idealista.ui.theme.IdealistaTheme
 
 @Composable
 fun ProductItem(
     product: ProductItem,
     onClick: (String) -> Unit,
+    onFavoriteClick: (ProductItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -61,7 +61,7 @@ fun ProductItem(
         MultimediaPager(multimedia = product.multimedia)
         PropertyTypeAndAddress(product = product)
         PricingAndSize(product = product)
-        ActionButtons()
+        ActionButtons(product = product, onFavoriteClick = onFavoriteClick)
     }
 }
 
@@ -150,6 +150,8 @@ private fun PricingAndSize(
 
 @Composable
 private fun ActionButtons(
+    product: ProductItem,
+    onFavoriteClick: (ProductItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -201,21 +203,13 @@ private fun ActionButtons(
                 tint = MaterialTheme.colorScheme.secondary,
             )
             Icon(
-                imageVector = Icons.Default.FavoriteBorder,
+                imageVector = if (product.isSaved) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Favorite",
                 tint = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier.clickable(
+                    role = Role.Button,
+                ) { onFavoriteClick(product) }
             )
         }
-    }
-}
-
-@Composable
-@Preview
-fun ProductItemPreview() {
-    IdealistaTheme {
-        ProductItem(
-            product = productMock,
-            onClick = {},
-        )
     }
 }

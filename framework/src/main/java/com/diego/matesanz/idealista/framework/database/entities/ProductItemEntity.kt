@@ -1,6 +1,11 @@
-package com.diego.matesanz.idealista.domain.models
+package com.diego.matesanz.idealista.framework.database.entities
 
-data class ProductItem(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity()
+data class ProductItemEntity(
+    @PrimaryKey
     val propertyCode: String,
     val thumbnail: String,
     val floor: String,
