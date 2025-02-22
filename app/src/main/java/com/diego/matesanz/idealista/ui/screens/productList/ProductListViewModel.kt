@@ -47,7 +47,5 @@ class ProductListViewModel(
         val isLoading: Boolean = false,
         val products: List<ProductItem> = emptyList(),
         val errorMessage: String? = null,
-        val toastDate: String? = null,
-        val toastIsSaved: Boolean? = null
     )
 }
