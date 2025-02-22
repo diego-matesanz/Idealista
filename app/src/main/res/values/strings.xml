@@ -5,7 +5,7 @@
     <!-- Product List Screen -->
     <string name="property_type_and_address">%1$s en %2$s</string>
     <string name="municipality_and_province">%1$s, %2$s</string>
-    <string name="number_of_rooms">%1$d hab.</string>
+    <string name="number_of_rooms_compact">%1$d hab.</string>
     <string name="size">%1$s m²</string>
     <string name="contact_button">Contactar</string>
     <string name="call_button">Llamar</string>
@@ -24,4 +24,10 @@
     <string name="see_comment">Ver:</string>
     <string name="translations_button">Traducciones</string>
     <string name="see_whole_comment">Ver el comentario completo</string>
+    <string name="basic_characteristics">Características básicas</string>
+    <string name="floor_number">%1$sª planta</string>
+    <string name="number_of_rooms">%1$d habitaciones</string>
+    <string name="number_of_bathrooms">%1$d baños</string>
+    <string name="constructed_area">%1$s m² construidos</string>
+    <string name="chat_button">Chat</string>
 </resources>

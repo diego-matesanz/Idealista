@@ -14,7 +14,6 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.diego.matesanz.idealista.R
 import com.diego.matesanz.idealista.domain.models.ProductItem
 import com.diego.matesanz.idealista.ui.common.components.multimediaPager.MultimediaPager
+import com.diego.matesanz.idealista.ui.common.components.propertyType.mapPropertyType
 import com.diego.matesanz.idealista.ui.common.utils.formatIntegerWithDots
 import com.diego.matesanz.idealista.ui.screens.productList.mocks.productMock
 import com.diego.matesanz.idealista.ui.theme.Black
@@ -103,14 +103,6 @@ private fun PropertyTypeAndAddress(
 }
 
 @Composable
-private fun mapPropertyType(propertyType: String): String {
-    return when (propertyType) {
-        "flat" -> stringResource(R.string.property_type_flat)
-        else -> propertyType
-    }
-}
-
-@Composable
 private fun PricingAndSize(
     product: ProductItem,
     modifier: Modifier = Modifier,
@@ -140,7 +132,7 @@ private fun PricingAndSize(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                text = stringResource(R.string.number_of_rooms, product.rooms),
+                text = stringResource(R.string.number_of_rooms_compact, product.rooms),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )

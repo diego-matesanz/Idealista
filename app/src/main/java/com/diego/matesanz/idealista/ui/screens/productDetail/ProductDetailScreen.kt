@@ -4,8 +4,10 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,10 +16,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -50,7 +55,9 @@ import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.domain.models.ProductDetail
 import com.diego.matesanz.idealista.framework.remote.ProductsClient
 import com.diego.matesanz.idealista.framework.remote.datasource.ProductsServerDataSource
+import com.diego.matesanz.idealista.ui.common.components.buttons.SecondaryButton
 import com.diego.matesanz.idealista.ui.common.components.multimediaPager.MultimediaPager
+import com.diego.matesanz.idealista.ui.common.components.propertyType.mapPropertyType
 import com.diego.matesanz.idealista.ui.common.utils.formatIntegerWithDots
 import com.diego.matesanz.idealista.ui.screens.Screen
 import com.diego.matesanz.idealista.usecases.GetProductDetailUseCase
@@ -101,41 +108,49 @@ fun ProductDetailScreen(
                 },
                 modifier = modifier,
             ) { padding ->
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(4.dp),
-                    modifier = Modifier
-                        .background(color = MaterialTheme.colorScheme.surface)
-                        .padding(padding),
+                Box(
+                    modifier = Modifier.padding(padding)
                 ) {
-                    item {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier
-                                .background(color = MaterialTheme.colorScheme.background)
-                                .padding(bottom = 16.dp),
-                        ) {
-                            MultimediaPager(
-                                multimedia = product.multimedia,
-                                isExpandedSize = true,
-                                imageShape = RectangleShape
-                            )
-                            PropertyTitle(title = product.propertyComment)
-                            PricingAndSize(product = product)
-                            ActionButtonsRow()
-                            AddNoteButton()
-                            PublisherComment(product = product)
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .background(color = MaterialTheme.colorScheme.surface),
+                        contentPadding = PaddingValues(bottom = 72.dp),
+                    ) {
+                        item {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(16.dp),
+                                modifier = Modifier
+                                    .background(color = MaterialTheme.colorScheme.background)
+                                    .padding(bottom = 16.dp),
+                            ) {
+                                MultimediaPager(
+                                    multimedia = product.multimedia,
+                                    isExpandedSize = true,
+                                    imageShape = RectangleShape
+                                )
+                                PropertyTitle(title = product.propertyComment)
+                                PricingAndSize(product = product)
+                                ActionButtonsRow()
+                                AddNoteButton()
+                                PublisherComment(product = product)
+                            }
+                        }
+                        item {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(16.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(color = MaterialTheme.colorScheme.background)
+                                    .padding(16.dp),
+                            ) {
+                                BasicCharacteristics(product = product)
+                                EnergyCertification(product = product)
+                            }
                         }
                     }
-                    item {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier
-                                .background(color = MaterialTheme.colorScheme.background)
-                                .padding(16.dp),
-                        ) {
-                            
-                        }
-                    }
+                    ContactButtons(modifier = Modifier.align(Alignment.BottomCenter))
                 }
             }
         }
@@ -344,6 +359,108 @@ private fun PublisherComment(
 private fun mapCountry(countryCode: String): String = when (countryCode) {
     "es" -> "Español (Original)"
     else -> countryCode
+}
+
+@Composable
+private fun BasicCharacteristics(
+    product: ProductDetail,
+    modifier: Modifier = Modifier,
+) {
+    val characteristics = listOf(
+        mapPropertyType(product.homeType),
+        stringResource(R.string.floor_number, product.moreCharacteristics.floor),
+        stringResource(R.string.constructed_area, product.moreCharacteristics.constructedArea),
+        stringResource(R.string.number_of_rooms, product.moreCharacteristics.roomNumber),
+        stringResource(R.string.number_of_bathrooms, product.moreCharacteristics.bathNumber),
+    )
+    CharacteristicsList(
+        characteristics = characteristics,
+        title = stringResource(R.string.basic_characteristics),
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun EnergyCertification(
+    product: ProductDetail,
+    modifier: Modifier = Modifier,
+) {
+    val characteristics = listOf(
+        product.energyCertification.energyConsumption.type.uppercase(),
+    )
+    CharacteristicsList(
+        characteristics = characteristics,
+        title = product.energyCertification.title,
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun CharacteristicsList(
+    characteristics: List<String>,
+    title: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        characteristics.forEach {
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontSize = MaterialTheme.typography.titleMedium.fontSize)) {
+                        append(" • ")
+                    }
+                    withStyle(style = SpanStyle(fontSize = MaterialTheme.typography.bodyLarge.fontSize)) {
+                        append(it)
+                    }
+                },
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ContactButtons(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.background),
+    ) {
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(top = 16.dp),
+        ) {
+            SecondaryButton(
+                text = stringResource(R.string.chat_button),
+                imageVector = Icons.AutoMirrored.Filled.Chat,
+                onClick = {},
+                modifier = Modifier.weight(1f),
+            )
+            SecondaryButton(
+                text = stringResource(R.string.call_button),
+                imageVector = Icons.Filled.Phone,
+                onClick = {},
+                modifier = Modifier.weight(1f),
+            )
+        }
+    }
 }
 
 @Composable
