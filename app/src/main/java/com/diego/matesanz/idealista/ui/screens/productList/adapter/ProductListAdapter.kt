@@ -1,4 +1,4 @@
-package com.diego.matesanz.idealista.ui.screens.productList
+package com.diego.matesanz.idealista.ui.screens.productList.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import com.diego.matesanz.idealista.ui.theme.IdealistaTheme
 
 class ProductListAdapter(
     private val products: List<ProductItem>,
+    private val listener: ProductItemListener,
 ) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -18,7 +19,10 @@ class ProductListAdapter(
     ): ViewHolder {
         val binding = ProductItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(
+            binding = binding,
+            onClick = listener::onProductClick,
+        )
     }
 
     override fun onBindViewHolder(
@@ -30,13 +34,19 @@ class ProductListAdapter(
 
     override fun getItemCount(): Int = products.size
 
-    class ViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        val binding: ProductItemBinding,
+        private val onClick: (String) -> Unit,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductItem) {
             binding.composeView.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 setContent {
                     IdealistaTheme {
-                        ProductItem(product = product)
+                        ProductItem(
+                            product = product,
+                            onClick = onClick,
+                        )
                     }
                 }
             }
