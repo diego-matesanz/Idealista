@@ -89,16 +89,6 @@ fun ProductDetailScreen(
                                     style = MaterialTheme.typography.titleMedium,
                                 )
                             },
-                            navigationIcon = {
-                                IconButton(
-                                    onClick = { }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                        contentDescription = stringResource(R.string.back_button),
-                                    )
-                                }
-                            },
                             colors = TopAppBarColors(
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 scrolledContainerColor = MaterialTheme.colorScheme.background,
