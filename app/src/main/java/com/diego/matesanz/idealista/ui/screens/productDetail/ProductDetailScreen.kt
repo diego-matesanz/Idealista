@@ -48,19 +48,14 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.diego.matesanz.idealista.R
-import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.domain.models.ProductDetail
-import com.diego.matesanz.idealista.framework.remote.ProductsClient
-import com.diego.matesanz.idealista.framework.remote.datasource.ProductsServerDataSource
 import com.diego.matesanz.idealista.ui.common.components.buttons.SecondaryButton
 import com.diego.matesanz.idealista.ui.common.components.multimediaPager.MultimediaPager
 import com.diego.matesanz.idealista.ui.common.components.propertyType.mapPropertyType
 import com.diego.matesanz.idealista.ui.common.utils.formatIntegerWithDots
 import com.diego.matesanz.idealista.ui.screens.Screen
-import com.diego.matesanz.idealista.usecases.productDetail.GetProductDetailUseCase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

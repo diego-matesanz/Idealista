@@ -11,6 +11,6 @@ import com.diego.matesanz.idealista.framework.database.entities.ProductItemEntit
     version = 1,
 )
 @TypeConverters(Converters::class)
-abstract class IdealistaDatabase: RoomDatabase() {
+internal abstract class IdealistaDatabase: RoomDatabase() {
     abstract fun productItemDao(): ProductItemDao
 }

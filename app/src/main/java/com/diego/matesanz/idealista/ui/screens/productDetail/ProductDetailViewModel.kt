@@ -8,11 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class ProductDetailViewModel(
     private val propertyCode: String,
     private val getProductDetailUseCase: GetProductDetailUseCase,
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state
 

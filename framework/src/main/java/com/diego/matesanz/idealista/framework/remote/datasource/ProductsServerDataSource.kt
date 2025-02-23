@@ -5,8 +5,10 @@ import com.diego.matesanz.idealista.domain.models.ProductDetail
 import com.diego.matesanz.idealista.domain.models.ProductItem
 import com.diego.matesanz.idealista.framework.remote.ProductsService
 import com.diego.matesanz.idealista.framework.remote.mappers.toDomainModel
+import org.koin.core.annotation.Factory
 
-class ProductsServerDataSource(
+@Factory
+internal class ProductsServerDataSource(
     private val productsService: ProductsService,
 ) : ProductRemoteDataSource {
 

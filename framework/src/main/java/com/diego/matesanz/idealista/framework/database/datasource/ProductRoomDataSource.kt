@@ -7,8 +7,10 @@ import com.diego.matesanz.idealista.framework.database.mappers.toDomainModel
 import com.diego.matesanz.idealista.framework.database.mappers.toEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
 
-class ProductRoomDataSource(
+@Factory
+internal class ProductRoomDataSource(
     private val productItemDao: ProductItemDao,
 ): ProductLocalDataSource {
 

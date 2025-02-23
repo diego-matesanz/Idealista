@@ -11,11 +11,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
 sealed interface ProductListAction {
     data class ToggleFavorite(val product: ProductItem) : ProductListAction
 }
 
+@KoinViewModel
 class ProductListViewModel(
     getProductsUseCase: GetProductsUseCase,
     private val toggleProductFavoriteUseCase: ToggleProductFavoriteUseCase
