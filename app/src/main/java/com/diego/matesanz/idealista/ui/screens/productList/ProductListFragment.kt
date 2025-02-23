@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.diego.matesanz.idealista.R
+import com.diego.matesanz.idealista.data.Result
 import com.diego.matesanz.idealista.databinding.FragmentProductListBinding
 import com.diego.matesanz.idealista.domain.models.ProductItem
 import com.diego.matesanz.idealista.ui.screens.productList.ProductListAction.ToggleFavorite
@@ -44,11 +45,18 @@ class ProductListFragment : Fragment(), ProductItemListener {
     private fun collectState() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
-                if (state.isLoading) {
-                    //binding.progressBar.visibility = View.VISIBLE
-                } else if (state.products.isNotEmpty()) {
-                    //binding.progressBar.visibility = View.GONE
-                    initRecyclerView(state.products)
+                when (state) {
+                    is Result.Loading -> {
+                        /* TODO Add loader */
+                    }
+
+                    is Result.Error -> {
+                        /* TODO Add error */
+                    }
+
+                    is Result.Success -> {
+                        initRecyclerView(state.data)
+                    }
                 }
             }
         }

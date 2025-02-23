@@ -50,6 +50,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.diego.matesanz.idealista.R
+import com.diego.matesanz.idealista.data.Result
 import com.diego.matesanz.idealista.domain.models.ProductDetail
 import com.diego.matesanz.idealista.ui.common.components.buttons.SecondaryButton
 import com.diego.matesanz.idealista.ui.common.components.multimediaPager.MultimediaPager
@@ -65,87 +66,98 @@ fun ProductDetailScreen(
 ) {
     val state = viewModel.state.collectAsState()
 
-    state.value.productDetail?.let { product ->
-        Screen {
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = {
-                            Text(
-                                text = product.propertyComment,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.titleMedium,
-                            )
-                        },
-                        navigationIcon = {
-                            IconButton(
-                                onClick = { }
-                            ) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                    contentDescription = stringResource(R.string.back_button),
+    when (state.value) {
+        is Result.Loading -> {
+            /* TODO Add loader */
+        }
+
+        is Result.Error -> {
+            /* TODO Add error */
+        }
+
+        is Result.Success -> {
+            val product = (state.value as Result.Success).data
+            Screen {
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = product.propertyComment,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.titleMedium,
                                 )
-                            }
-                        },
-                        colors = TopAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            scrolledContainerColor = MaterialTheme.colorScheme.background,
-                            navigationIconContentColor = MaterialTheme.colorScheme.secondary,
-                            titleContentColor = MaterialTheme.colorScheme.onBackground,
-                            actionIconContentColor = MaterialTheme.colorScheme.secondary,
-                        ),
-                        windowInsets = WindowInsets(
-                            top = 0.dp,
-                            bottom = 0.dp,
-                        ),
-                    )
-                },
-                modifier = modifier,
-            ) { padding ->
-                Box(
-                    modifier = Modifier.padding(padding)
-                ) {
-                    LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .background(color = MaterialTheme.colorScheme.surface),
-                        contentPadding = PaddingValues(bottom = 72.dp),
+                            },
+                            navigationIcon = {
+                                IconButton(
+                                    onClick = { }
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                        contentDescription = stringResource(R.string.back_button),
+                                    )
+                                }
+                            },
+                            colors = TopAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                scrolledContainerColor = MaterialTheme.colorScheme.background,
+                                navigationIconContentColor = MaterialTheme.colorScheme.secondary,
+                                titleContentColor = MaterialTheme.colorScheme.onBackground,
+                                actionIconContentColor = MaterialTheme.colorScheme.secondary,
+                            ),
+                            windowInsets = WindowInsets(
+                                top = 0.dp,
+                                bottom = 0.dp,
+                            ),
+                        )
+                    },
+                    modifier = modifier,
+                ) { padding ->
+                    Box(
+                        modifier = Modifier.padding(padding)
                     ) {
-                        item {
-                            Column(
-                                verticalArrangement = Arrangement.spacedBy(16.dp),
-                                modifier = Modifier
-                                    .background(color = MaterialTheme.colorScheme.background)
-                                    .padding(bottom = 16.dp),
-                            ) {
-                                MultimediaPager(
-                                    multimedia = product.multimedia,
-                                    isExpandedSize = true,
-                                    imageShape = RectangleShape
-                                )
-                                PropertyTitle(title = product.propertyComment)
-                                PricingAndSize(product = product)
-                                ActionButtonsRow()
-                                AddNoteButton()
-                                PublisherComment(product = product)
+                        LazyColumn(
+                            verticalArrangement = Arrangement.spacedBy(4.dp),
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .background(color = MaterialTheme.colorScheme.surface),
+                            contentPadding = PaddingValues(bottom = 72.dp),
+                        ) {
+                            item {
+                                Column(
+                                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                                    modifier = Modifier
+                                        .background(color = MaterialTheme.colorScheme.background)
+                                        .padding(bottom = 16.dp),
+                                ) {
+                                    MultimediaPager(
+                                        multimedia = product.multimedia,
+                                        isExpandedSize = true,
+                                        imageShape = RectangleShape
+                                    )
+                                    PropertyTitle(title = product.propertyComment)
+                                    PricingAndSize(product = product)
+                                    ActionButtonsRow()
+                                    AddNoteButton()
+                                    PublisherComment(product = product)
+                                }
+                            }
+                            item {
+                                Column(
+                                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(color = MaterialTheme.colorScheme.background)
+                                        .padding(16.dp),
+                                ) {
+                                    BasicCharacteristics(product = product)
+                                    EnergyCertification(product = product)
+                                }
                             }
                         }
-                        item {
-                            Column(
-                                verticalArrangement = Arrangement.spacedBy(16.dp),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .background(color = MaterialTheme.colorScheme.background)
-                                    .padding(16.dp),
-                            ) {
-                                BasicCharacteristics(product = product)
-                                EnergyCertification(product = product)
-                            }
-                        }
+                        ContactButtons(modifier = Modifier.align(Alignment.BottomCenter))
                     }
-                    ContactButtons(modifier = Modifier.align(Alignment.BottomCenter))
                 }
             }
         }
