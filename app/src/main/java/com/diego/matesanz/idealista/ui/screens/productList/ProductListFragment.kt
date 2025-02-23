@@ -9,26 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.diego.matesanz.idealista.App
 import com.diego.matesanz.idealista.R
-import com.diego.matesanz.idealista.data.repositories.ProductRepository
 import com.diego.matesanz.idealista.databinding.FragmentProductListBinding
 import com.diego.matesanz.idealista.domain.models.ProductItem
-import com.diego.matesanz.idealista.framework.database.datasource.ProductRoomDataSource
-import com.diego.matesanz.idealista.framework.remote.ProductsClient
-import com.diego.matesanz.idealista.framework.remote.datasource.ProductsServerDataSource
 import com.diego.matesanz.idealista.ui.screens.productList.ProductListAction.ToggleFavorite
 import com.diego.matesanz.idealista.ui.screens.productList.adapter.ProductItemListener
 import com.diego.matesanz.idealista.ui.screens.productList.adapter.ProductListAdapter
-import com.diego.matesanz.idealista.usecases.productList.GetProductsUseCase
-import com.diego.matesanz.idealista.usecases.productList.ToggleProductFavoriteUseCase
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDateTime
 
 class ProductListFragment : Fragment(), ProductItemListener {
 
     private lateinit var binding: FragmentProductListBinding
-    private lateinit var viewModel: ProductListViewModel
+
+    private val viewModel: ProductListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,22 +33,6 @@ class ProductListFragment : Fragment(), ProductItemListener {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentProductListBinding.inflate(layoutInflater)
 
-        val app = requireContext().applicationContext as App
-        val productsClient = ProductsClient.instance
-        val productsServerDataSource = ProductsServerDataSource(productsClient)
-        val productRoomDataSource = ProductRoomDataSource(app.database.productItemDao())
-        val productRepository = ProductRepository(
-            productsServerDataSource,
-            productRoomDataSource,
-        )
-        val getProductsUseCase = GetProductsUseCase(productRepository)
-        val toggleProductFavoriteUseCase =
-            ToggleProductFavoriteUseCase(productRepository)
-
-        viewModel = ProductListViewModel(
-            getProductsUseCase,
-            toggleProductFavoriteUseCase,
-        )
         return binding.root
     }
 

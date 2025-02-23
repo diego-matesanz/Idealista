@@ -6,7 +6,9 @@ import com.diego.matesanz.idealista.domain.models.ProductDetail
 import com.diego.matesanz.idealista.domain.models.ProductItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
+import org.koin.core.annotation.Factory
 
+@Factory
 class ProductRepository(
     private val remoteDataSource: ProductRemoteDataSource,
     private val localDataSource: ProductLocalDataSource,
