@@ -2,14 +2,12 @@ package com.diego.matesanz.idealista.ui.screens.productList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.diego.matesanz.idealista.data.Result
+import com.diego.matesanz.idealista.data.stateAsResultIn
 import com.diego.matesanz.idealista.domain.models.ProductItem
 import com.diego.matesanz.idealista.usecases.productList.GetProductsUseCase
 import com.diego.matesanz.idealista.usecases.productList.ToggleProductFavoriteUseCase
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
@@ -23,15 +21,9 @@ class ProductListViewModel(
     private val toggleProductFavoriteUseCase: ToggleProductFavoriteUseCase
 ) : ViewModel() {
 
-    val state: StateFlow<UiState> =
+    val state: StateFlow<Result<List<ProductItem>>> =
         getProductsUseCase()
-            .map { products -> UiState(products = products, isLoading = false) }
-            .catch { UiState(errorMessage = it.message) }
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
-                UiState(isLoading = true)
-            )
+            .stateAsResultIn(viewModelScope)
 
     fun onAction(action: ProductListAction) {
         when (action) {
@@ -44,10 +36,4 @@ class ProductListViewModel(
             toggleProductFavoriteUseCase(product)
         }
     }
-
-    data class UiState(
-        val isLoading: Boolean = false,
-        val products: List<ProductItem> = emptyList(),
-        val errorMessage: String? = null,
-    )
 }
